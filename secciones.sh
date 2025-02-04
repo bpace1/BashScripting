@@ -13,8 +13,8 @@ MY_PATH=$(pwd)
 REPOSITORIO="oh-my-git"
 
 
-# Se chequea si el directorio existe, si existe  imprime un mensaje. En caso contrario, clona el repositorio. 
-if [ -d $REPOSITORIO ] 
+# Se chequea si el directorio existe, si existe  imprime un mensaje. En caso contrario, clona el repositorio.
+if [ -d $REPOSITORIO ]
 then
 	echo "Existe el Repositorio de oh-my-git."
 else
@@ -34,12 +34,21 @@ FULL_PATH="$MY_PATH/$REPOSITORIO/$LEVELS"
 
 LEVELS_LIST=$(ls "$FULL_PATH")
 
-for dir in $LEVELS_LIST
+
+# Para filtrar las secciones precisamos utilizar REGEX.
+# Esta página es intiuitiva y arma la expresión https://regex-generator.olafneumann.org
+for LEVEL in $LEVELS_LIST
 do
-	echo $dir
+	if [$LEVEL = 'sequence' ]; then
+		continue
+	fi
+	for SUBLEVEL in $(ls $FULL_PATH/$LEVEL)
+do
+	if [ $SUBLEVEL = 'sequence' ]; then
+		continue
+	fi
+	SUBLEVEL_PATH=$FULL_PATH/$LEVEL/$SUBLEVEL
+	echo nivel: $LEVEL - subnivel:  $SUBLEVEL
+	grep -oP  '\[\K[^][]*(?=])' $SUBLEVEL_PATH
 done
-
-
-
-
-
+done
