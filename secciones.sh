@@ -7,6 +7,8 @@
 # Extraigo el path para evitar errores en la ejecución.
 MY_PATH=$(pwd)
 
+echo "Inicio de chequeo de repositorio en el directorio."
+
 #echo $MY_PATH
 
 # Guardo en una variable el nombre de la carpeta del juego oh-my-git.
@@ -34,6 +36,7 @@ FULL_PATH="$MY_PATH/$REPOSITORIO/$LEVELS"
 
 LEVELS_LIST=$(ls "$FULL_PATH")
 
+echo "Filtrando secciones de los niveles."
 
 # Para filtrar las secciones precisamos utilizar REGEX.
 # Esta página es intiuitiva y arma la expresión https://regex-generator.olafneumann.org
@@ -49,13 +52,15 @@ do
                 continue
         fi
         SUBLEVEL_PATH=$LEVEL_PATH/$SUBLEVEL
-        echo nivel: $LEVEL - subnivel:  $SUBLEVEL
+        echo nivel: $LEVEL - subnivel:  $SUBLEVEL >> secciones.txt # ¿Por qué se utilizan dos signos >>?
         #grep -oP  '\[\K[^][]*(?=])' "$SUBLEVEL_PATH"
 #       grep -E '^[a-zA-Z ]' "$SUBLEVEL_PATH"
 #
-        grep -E '^[a-zA-Z]+$' "$SUBLEVEL_PATH"
+        grep -oP '^\s*\[\K[^]]*(?=\]\s*$)' "$SUBLEVEL_PATH" >> secciones.txt
 done
 done
+
+echo "Se guardó un archivo 'secciones.txt' con la información."
 
 # ¿Por qué los path están encerrado entre comillas dobles?
 # ¿Existe otra manera de resolver este ejercicio?
