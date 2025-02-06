@@ -9,16 +9,15 @@ Dentro del repositorio de git: https://github.com/git-learning-game/oh-my-git.gi
 
 **Ejercicio 2.**    Use instrucciones de Bash para generar un archivo llamado chequeos que contenga los textos presentes en la sección [win] de todos los niveles. Puede valerse de la siguiente función de Bash o su comando principal para obtener el contenido de una sección:
 
-``
+``` 
 extraer_seccion() {
 
   ARCHIVO="$1"
 
   SECCION="$2"
 
-  sed -n '/^\['$SECCION'.*\]/,/^\[.*\]$/{/^\['$SECCION'.*\]/!{/\[.*\]$/!p}}' "$ARCHIVO"
-
-}
-``
+  sed -n '/^\['$SECCION'.*\]/,/^\[.*\]$/{/^\['$SECCION'.*\]/!{/\[.*\]$/!p}}' "$ARCHIVO"``Use `code` in your Markdown file.``
+} 
+``` 
 
 **Ejercicio 3.**   Elija uno de los chequeos de la sección [win] del nivel que desee y explique su funcionamiento. 
